@@ -39,8 +39,8 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def Borrowing_books(request,book_id):
     book = get_object_or_404(Book,pk=book_id)
-    # account = UserAccount.objects.get(user=request.user)
-    account, created = UserAccount.objects.get_or_create(user=request.user)
+    account = UserAccount.objects.get(user=request.user)
+    # account, created = UserAccount.objects.get_or_create(user=request.user)
 
     if book.quantity < 1:
         messages.error(request,'Your desired book is not available')
