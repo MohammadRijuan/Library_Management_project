@@ -19,6 +19,7 @@ crispy-tailwind
 cryptography
 daphne
 distlib
+dj-database-url
 Django
 django-allauth
 django-channels
@@ -42,6 +43,7 @@ platformdirs
 pluggy
 prompt_toolkit
 psycopg2
+psycopg2-binary
 pyasn1
 pyasn1_modules
 pycparser
