@@ -150,6 +150,8 @@ class DetailBookView(DetailView):
     def post(self, request, *args, **kwargs):
         book = self.get_object()
         comment_form = self.form_class(data=request.POST)
+
+        user_has_borrowed = BorrowingBookHistory.objects.filter(user=request.user, book=book).exists()
         
         if comment_form.is_valid():
             new_comment = comment_form.save(commit=False)
@@ -165,8 +167,15 @@ class DetailBookView(DetailView):
         reviews = Review.objects.filter(book=book)
         # reviews=book.reviews.all()
         comment_form = self.form_class()
+
+        if self.request.user.is_authenticated:
+            user_has_borrowed = BorrowingBookHistory.objects.filter(user=self.request.user, book=book).exists()
+        else:
+            user_has_borrowed = False
+
         context['reviews'] = reviews
         context['comment_form'] = comment_form
+        context['user_has_borrowed'] = user_has_borrowed
         return context
     
 
